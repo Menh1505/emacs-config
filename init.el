@@ -12,7 +12,7 @@
 
 (set-face-attribute 'default nil :font "0xProto Nerd Font" :height 120)
 
-(load-theme 'tango-dark)
+(load-theme 'wombat)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -61,7 +61,14 @@
          ("C-x b" . counsel-switch-buffer)  ;; Chuyển buffer nhanh
          ("M-y" . counsel-yank-pop)  ;; Dán từ kill-ring
          ("C-c r" . counsel-rg)  ;; Tìm kiếm bằng ripgrep
-         ("C-c g" . counsel-git)))  ;; Tìm file trong repo git
+         ("C-c g" . counsel-git) ;; Tìm file trong repo git
+	 :map ivy-switch-buffer-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-l" . ivy-done)
+	 ("C-d" . ivy-switch-buffer-kill)
+	 :map ivy-reverse-i-search-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-d" . ivy-reverse-i-search-kill)))  
 
 ;; Thanh trạng thái xịn và đẹp hơn
 (use-package doom-modeline
