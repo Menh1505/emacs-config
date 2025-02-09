@@ -81,6 +81,7 @@
   :init
   (ivy-rich-mode 1))
 
+;; Bổ trợ cho ivy 
 (use-package counsel
   :ensure t
   :after ivy
@@ -107,22 +108,51 @@
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
 
+;; Các theme của doom
 (use-package doom-themes
   :ensure t
   :config
   (load-theme 'doom-dracula 1))
 
-
+;; Tô màu dấu ngoặc
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))  ;; Tự động bật trong các buffer lập trình
 
+;; Hiển thị thông tin lệnh
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 1))
 
+;; Tìm kiếm ngay trong emacs
+(use-package engine-mode
+  :config
+  (engine/set-keymap-prefix (kbd "C-c s"))
+  (setq browse-url-browser-function 'browse-url-default-browser)
+
+  (defengine github
+    "https://github.com/search?ref=simplesearch&q=%s"
+    :keybinding "1")
+
+  (defengine vocabulary
+    "https://www.vocabulary.com/dictionary/%s"
+    :keybinding "t")
+
+  (defengine translate
+    "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=%s&op=translate"
+    :keybinding "T")
+
+  (defengine youtube
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"
+    :keybinding "y")
+
+  (defengine google
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"
+    :keybinding "g")
+
+  (engine-mode 1))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -133,7 +163,7 @@
    '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9" default))
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
+   '(engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
