@@ -3,8 +3,11 @@
       user-login-name      "menhythien"
       user-mail-address    "dinhthienmenh1505@gmail.com")
 
-(setq inhibit-startup-message t)
-(setq x-stretch-cursor t)
+(setq inhibit-startup-message t) ;; Bỏ startup message 
+(setq x-stretch-cursor t) ;; Con trỏ văn bản khớp với ký tự lớn
+
+(set-frame-parameter nil 'alpha '(95 . 95))
+(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 
 ;; Theo dõi pin laptop
 (let ((battery-str (battery)))
@@ -19,8 +22,7 @@
 
 (menu-bar-mode -1)            ; Disable the menu bar
 
-;; Set up the visible bell
-(setq visible-bell t)
+(setq visible-bell t) ;; Set up the visible bell
 
 (set-face-attribute 'default nil :font "0xProto Nerd Font" :height 120)
 
@@ -63,6 +65,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Chế độ lưu lại các lệnh đã thực hiện 
 (use-package command-log-mode)
 
 (use-package ivy
@@ -173,7 +176,7 @@
    '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9" default))
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(magit engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
+   '(wallpaper ibus magit engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
