@@ -1,4 +1,16 @@
+(setq user-full-name       "Dinh Thien Menh"
+      user-real-login-name "Dinh Thien Menh"
+      user-login-name      "menhythien"
+      user-mail-address    "dinhthienmenh1505@gmail.com")
+
 (setq inhibit-startup-message t)
+(setq x-stretch-cursor t)
+
+;; Theo dõi pin laptop
+(let ((battery-str (battery)))
+  (unless (or (equal "Battery status not available" battery-str)
+              (string-match-p (regexp-quote "N/A") battery-str))
+    (display-battery-mode 1)))
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
@@ -12,12 +24,26 @@
 
 (set-face-attribute 'default nil :font "0xProto Nerd Font" :height 120)
 
-(load-theme 'wombat)
-
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Khởi tạo packages  
+;; Hiện số dòng
+(column-number-mode)
+(dolist (mode '(text-mode-hook
+                prog-mode-hook
+                conf-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+
+;; Tắt số dòng trong org mode cho đỡ rối
+(dolist (mode '(org-mode-hook
+		term-mode-hook
+		vterm-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(setq display-line-numbers-type 'relative)
+
+;; Khởi tạo packages
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -51,13 +77,18 @@
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)))
 
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
 (use-package counsel
   :ensure t
   :after ivy
   :config
+  (setq ivy-initial-inputs-alist nil) ;; Không bắt đầu tìm kiếm bằng ^
   (counsel-mode 1)  ;; Thay thế các lệnh mặc định bằng phiên bản mở rộng
-  :bind (("M-x" . counsel-M-x)  ;; Tìm lệnh nhanh
-         ("C-x C-f" . counsel-find-file)  ;; Tìm file tốt hơn
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x C-f" . counsel-find-file)  ;; Tìm file tốt hơn
          ("C-x b" . counsel-switch-buffer)  ;; Chuyển buffer nhanh
          ("M-y" . counsel-yank-pop)  ;; Dán từ kill-ring
          ("C-c r" . counsel-rg)  ;; Tìm kiếm bằng ripgrep
@@ -76,13 +107,33 @@
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
 
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-dracula 1))
+
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))  ;; Tự động bật trong các buffer lập trình
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 1))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9" default))
+ '(ispell-dictionary nil)
  '(package-selected-packages
-   '(counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
+   '(doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
