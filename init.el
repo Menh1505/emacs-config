@@ -58,7 +58,7 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
+ 
 ;; Bật `use-package` cho tất cả package
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -154,6 +154,16 @@
 
   (engine-mode 1))
 
+;; Làm việc với git
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status))  ;; Mở Magit nhanh bằng C-x g
+  :config
+  (setq magit-auto-revert-mode nil) ;; Không tự động refresh buffer
+  (setq magit-diff-options '("-b")) ;; Bỏ qua khoảng trắng khi diff
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)) ;; Giữ Magit trong một cửa sổ
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -163,7 +173,7 @@
    '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9" default))
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
+   '(magit engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
