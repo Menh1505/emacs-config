@@ -75,7 +75,7 @@
   (ivy-mode 1)
   :bind (("C-s" . swiper)  ;; Tìm kiếm nhanh trong buffer
          :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)
+         ("TAB" . ivy-partial-or-done)
          ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)))
