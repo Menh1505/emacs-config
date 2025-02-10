@@ -3,6 +3,7 @@
       user-login-name      "menhythien"
       user-mail-address    "dinhthienmenh1505@gmail.com")
 
+(setq default-frame-alist '((undecorated . t))) ;; Bỏ title bar
 (setq inhibit-startup-message t) ;; Bỏ startup message 
 (setq x-stretch-cursor t) ;; Con trỏ văn bản khớp với ký tự lớn
 
@@ -15,19 +16,18 @@
               (string-match-p (regexp-quote "N/A") battery-str))
     (display-battery-mode 1)))
 
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
+(scroll-bar-mode -1)        ; Tắt scrollbar 
+(tool-bar-mode -1)          ; Tắt toolbar
+(tooltip-mode -1)           ; Tắt tooltips
+(set-fringe-mode 10)        ; Thêm khoảng trống 2 cạnh màn hình 
 
-(menu-bar-mode -1)            ; Disable the menu bar
+(menu-bar-mode -1)            ; Tắt menu bar
 
-(setq visible-bell t) ;; Set up the visible bell
+(setq visible-bell t) ;; Bật hiệu ứng bell
 
 (set-face-attribute 'default nil :font "0xProto Nerd Font" :height 120)
 
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; Đặt nút ESC làm nút hủy lệnh
 
 ;; Hiện số dòng
 (column-number-mode)
@@ -166,6 +166,15 @@
   (setq magit-diff-options '("-b")) ;; Bỏ qua khoảng trắng khi diff
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)) ;; Giữ Magit trong một cửa sổ
 
+;; Cây thư mục
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (global-set-key (kbd "C-x t t") 'treemacs)  ;; Mở Treemacs bằng C-x t t
+  (setq treemacs-width 30)  ;; Đặt chiều rộng sidebar
+  (setq treemacs-follow-mode t)  ;; Theo dõi file đang mở
+  (setq treemacs-git-mode 'extended))  ;; Hiển thị trạng thái Git
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -176,7 +185,7 @@
    '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9" default))
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(wallpaper ibus magit engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
+   '(treemacs wallpaper ibus magit engine-mode doom-themes ivy-rich which-key rainbow-delimiters vterm counsel swiper cmake-mode xwwp-follow-link-ivy use-package ivy gnu-elpa-keyring-update doom-modeline command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
